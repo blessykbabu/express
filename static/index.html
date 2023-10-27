@@ -17,14 +17,38 @@
 
     <script>
       let list = document.getElementById("list");
-      let todo=document.getElementById("todo")
-      function print(event){
+      let todo=document.getElementById("todolist")
+      function abc(event){
         event.preventDefault();
-        fetch("/api",{
-            method:"post",
-            body:{
-                todo:todo.value
-            }
+        // fetch("/api",{
+        //     method:"post",
+        //     headers:{
+        //       "Content-Type":"application/json"
+        //     },
+        //     body:JSON.stringify({
+        //         todo:todo.value
+        //     })
+        // })
+        // .then(res=>{
+        //   console.log(res)
+        // })
+
+
+        // fetch("/api",{
+        //     method:"put",
+        //     headers:{
+        //       "Content-Type":"application/json"
+        //     },
+        //     body:JSON.stringify({
+        //         todo:todo.value
+        //     })
+        // })
+
+        fetch("/api?name="+todolist.value,{
+          method:"get"
+        })
+        .then(res=>{
+          console.log(res)
         })
       }
     </script>
