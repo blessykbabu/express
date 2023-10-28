@@ -1,56 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    
-  </head>
-  <body>
-    <h3>TO DO LIST</h3>
-    <form action="/set-todo" method="get" onsubmit="abc(event)">
-      <input type="text" placeholder="Add List" name="todo" id="todolist" style="background-color: lightpink; color:white; width:200px;  height: 80px;" />
-      <input type="submit" style="background-color: white;color:green; border: 0px;" />
-      
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+</head>
+<body>
+    <form onsubmit="submitHandler(event)">
+        <input name="todo" type="text" id="todo" placeholder="todo">
+        <button type="submit">Submit</button>
     </form>
     <ol id="list"></ol>
 
     <script>
-      let list = document.getElementById("list");
-      let todo=document.getElementById("todolist")
-      function abc(event){
-        event.preventDefault();
-        // fetch("/api",{
-        //     method:"post",
-        //     headers:{
-        //       "Content-Type":"application/json"
-        //     },
-        //     body:JSON.stringify({
-        //         todo:todo.value
-        //     })
-        // })
-        // .then(res=>{
-        //   console.log(res)
-        // })
+        let list = document.getElementById("list");
+        let todoInput = document.getElementById("todo");
 
+        function print() {
+            fetch("/api")
+                .then((res) => res.json())
+                .then((data) => {
+                    list.innerHTML = "";
+                    data.forEach((element) => {
+                        let li = `<li>${element}<button onclick="del('${element}')">delete</button>
+                            <button onclick="edit('${element}')">edit</button>
+                            </li>`;
+                        list.innerHTML += li;
+                    });
+                });
+        }
+        print();
 
-        // fetch("/api",{
-        //     method:"put",
-        //     headers:{
-        //       "Content-Type":"application/json"
-        //     },
-        //     body:JSON.stringify({
-        //         todo:todo.value
-        //     })
-        // })
+        function submitHandler(event) {
+            event.preventDefault();
+            let todo = todoInput.value;
+            fetch("/api", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ todo })
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    print();
+                    todoInput.value = "";
+                });
+        }
 
-        fetch("/api?name="+todolist.value,{
-          method:"get"
-        })
-        .then(res=>{
-          console.log(res)
-        })
-      }
+        function del(todo) {
+            fetch(`/api?todo=${todo}`, {
+                method: "DELETE"
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    print();
+                });
+        }
+
+        function edit(oldTodo) {
+            let newTodo = prompt("Enter new todo");
+            if (newTodo) {
+                fetch(`/api?oldTodo=${oldTodo}&newTodo=${newTodo}`, {
+                    method: "PUT"
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        console.log(data);
+                        print();
+                    });
+            }
+        }
     </script>
-  </body>
-</html>

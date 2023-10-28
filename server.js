@@ -1,37 +1,19 @@
 import express from "express";
-
 import router from "./router.js";
-const server=express()
 
-server.use(express.json())
-server.use(express.urlencoded({
-    extended:true
-}))
-server.use("/",express.static("./static"))
-server.use("/api",router)
+const server = express();
 
-// server.get("/api",(req,res)=>{
-//     console.log(req.query)
-//     res.json("hello")
-// })
+server.use(express.json());
+server.use(express.urlencoded({ extended: true }));
 
-// server.post("/api",(req,res)=>{
-//     console.log(req.body);
-//     res.json("post api");
+server.use("/", express.static("./static"));
 
-// })
-// server.put("/api",(req,res)=>{
-//     console.log(req.body);
-//     res.json("post api");
+server.use("/api", router);
 
-// }
-// )
-
-server.listen(3000,(error)=>{
-    if(error){
-        console.log(error);
-        return;
-    }
-    console.log("server start on port 3000")
-
+server.listen(3000, (error) => {
+   if(error) {
+      console.log(error);
+      return;
+   }
+   console.log("Server started on port 3000");
 })
