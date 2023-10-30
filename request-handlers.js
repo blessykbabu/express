@@ -54,3 +54,32 @@ export function editTodo(req, res) {
         res.status(404).json({ message: "Todo not found" });
     }
 }
+// export function setData(req,res){
+//     try{
+       
+//         console.log(req.query);
+//         res.status(200).send("data")
+//     }
+//     catch(error){
+//         console.log(error)
+//         res.json("error")
+//     }
+
+// }
+
+
+
+                                //   the folloeing code for get id of a user
+export function users(req,res){                      
+    try{
+        let id=req.params;    //get parameters---params used for
+        console.log(id);
+        console.log(req.query);
+        res.status(200).send("userdata")
+    }
+    catch(error){
+        console.log(error)
+        res.json("error")
+    }
+
+}
