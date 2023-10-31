@@ -69,7 +69,7 @@ export function editTodo(req, res) {
 
 
 
-                                //   the folloeing code for get id of a user
+                                //   the following code for get id of a user
 export function users(req,res){                      
     try{
         let id=req.params;    //get parameters---params used for
