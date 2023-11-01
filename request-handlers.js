@@ -69,7 +69,16 @@ export async function setData(req,res){
 
 }
 
+export async function getData(req,res){
+    try{
+             let data=await UserSchema.find();
+             console.log(data)
+    }
+    catch(error){
+        res.status(500).send("some error")
 
+    }
+}
 
                                 //   the following code for get id of a user
 export function users(req,res){                      

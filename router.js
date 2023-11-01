@@ -6,6 +6,7 @@ const router = Router();
 
 // router.route("/").get(rh.getData).post(rh.addTodo).delete(rh.deleteTodo).put(rh.editTodo);
 router.route("/").post(rh.setData)
+router.route("/get-data").get(rh.getData)
 router.route("/users/:id").get(middleWare,rh.users)
 export default router;
 
