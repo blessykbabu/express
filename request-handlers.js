@@ -54,6 +54,7 @@
 //         res.status(404).json({ message: "Todo not found" });
 //     }
 // }
+import userSchema from "./schemas/user.schema.js";
 import UserSchema from  "./schemas/user.schema.js"
 export async function setData(req,res){
     try{
@@ -72,7 +73,7 @@ export async function setData(req,res){
 export async function getData(req,res){
     try{
              let data=await UserSchema.find();
-             console.log(data)
+             res.json(data)
     }
     catch(error){
         res.status(500).send("some error")
@@ -80,6 +81,32 @@ export async function getData(req,res){
     }
 }
 
+
+export async function updateData(req,res){
+    try {
+        let {id}=req.query;  //here destructuring id 
+        let data=req.body;  //these for update details ie, new data
+        let result=await userSchema.updateOne({_id:id},data)
+        res.json(result)
+        
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("some error occcured")
+    }
+}
+
+
+
+export async function  deleteData(req,res){
+    try {
+        let {id}=req.query;
+        let result=await userSchema.deleteOne({_id:id});
+        res.json(result)
+    } catch (error) {
+      console.log(error) 
+      res.json("some error") 
+    }
+}
                                 //   the following code for get id of a user
 export function users(req,res){                      
     try{
