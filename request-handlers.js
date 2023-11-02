@@ -60,7 +60,7 @@ export async function setData(req,res){
     try{
        let {id,name,fname,lname,ph,password,email}=req.body;
        let result=await UserSchema.create({id,name,fname,lname,ph,password,email})
-       
+       console.log(result)
         res.status(200).send("result")
     }
     catch(error){
@@ -73,6 +73,7 @@ export async function setData(req,res){
 export async function getData(req,res){
     try{
              let data=await UserSchema.find();
+             console.log(data)
              res.json(data)
     }
     catch(error){
