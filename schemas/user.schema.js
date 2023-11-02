@@ -5,6 +5,22 @@ const Schema=new mongoose.Schema({
     },
     name:{
         type:String
+    },
+    fname:{
+        type:String
+    },
+    lname:{
+        type:String
+    },
+    ph:{
+        type:Number
+    },
+    email:{
+        type:String
+    },
+    password:{
+        type:String
     }
+
 });
 export default mongoose.model.Users || mongoose.model("User",Schema);

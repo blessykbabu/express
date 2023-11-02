@@ -58,8 +58,8 @@ import userSchema from "./schemas/user.schema.js";
 import UserSchema from  "./schemas/user.schema.js"
 export async function setData(req,res){
     try{
-       let {id,name}=req.body;
-       let result=await UserSchema.create({id,name})
+       let {id,name,fname,lname,ph,password,email}=req.body;
+       let result=await UserSchema.create({id,name,fname,lname,ph,password,email})
        
         res.status(200).send("result")
     }
