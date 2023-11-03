@@ -83,6 +83,23 @@ export async function getData(req,res){
 }
 
 
+
+
+
+export async function getData2(req,res){
+    try{
+        let {id}=req.query;
+             let data=await UserSchema.findOne({id:id});
+            //  console.log(data)
+             res.json(data)
+    }
+    catch(error){
+        res.status(500).send("some error")
+
+    }
+}
+
+
 export async function updateData(req,res){
     try {
         let {id}=req.query;  //here destructuring id 
@@ -96,6 +113,18 @@ export async function updateData(req,res){
     }
 }
 
+export async function updateData2(req,res){
+    try {
+        let {id}=req.query;  //here destructuring id 
+        let data=req.body;  //these for update details ie, new data
+        let result=await userSchema.updateOne({_id:id},data)
+        res.json(result)
+        
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("some error occcured")
+    }
+}
 
 
 export async function  deleteData(req,res){

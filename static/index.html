@@ -7,17 +7,18 @@
 </head>
 <body>
     <!-- <form onsubmit="submitHandler(event)"> -->
+        <h1>DATA FORM</h1>
         <form action="http://localhost:3000/api" method="post">
-            <input type ="text" name="id" id="id" placeholder="id">
-        <input name="name" type="text" id="name" placeholder="user name">
-        <input name="fname" type="text" id="fname" placeholder="fast name">
-        <input name="lname" type="text" id="lname" placeholder="last name">
-        <input name="ph" type="text" id="ph" placeholder="phone number">
-        <input name="email" type="text" id="email" placeholder="email">
-        <input name="password" type="text" id="password" placeholder="password">
+            <input type ="text" name="id" id="id" placeholder="id"><br>
+        <input name="name" type="text" id="name" placeholder="user name"><br>
+        <input name="fname" type="text" id="fname" placeholder="fast name"><br>
+        <input name="lname" type="text" id="lname" placeholder="last name"><br>
+        <input name="ph" type="text" id="ph" placeholder="phone number"><br>
+        <input name="email" type="text" id="email" placeholder="email"><br>
+        <input name="password" type="text" id="password" placeholder="password"><br>
         <button type="submit">Submit</button>
     </form>
-    <!-- <ol id="list"></ol> -->
+    <ol id="list"></ol>
 
     <script>
         // let list = document.getElementById("list");
@@ -79,6 +80,19 @@
         //                 print();
         //             });
         //     }}
+
+
+
+  let list=document.getElementById("list")
+  fetch(`http://localhost:3000/api/get-data`)
+  .then(res =>res.json())
+  .then(data => {
+    data.forEach(item =>{
+        let li=`<li>${item.name}<a href="/user.html?id=${item.id}">more</a><button><a href="/edit.html">Update</></button></li>`
+            list.innerHTML +=li; 
+    })
+  })
+
         
     </script>
 </body>
