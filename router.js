@@ -12,6 +12,9 @@ router.route("/update-data").put(rh.updateData)
 router.route("/update-data2").put(rh.updateData2)
 router.route("/delete-data").delete(rh.deleteData)
 router.route("/users/:id").get(middleWare,rh.users)
+
+router.route("/register").post(rh.register)
+router.route("/login").post(rh.login)
 export default router;
 
 function middleWare(req,res,next){    //in this block we create the function for custome middlware "middleWare"

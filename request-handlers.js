@@ -56,6 +56,8 @@
 // }
 import userSchema from "./schemas/user.schema.js";
 import UserSchema from  "./schemas/user.schema.js"
+import loginSchema from "./schemas/login.schema.js";
+import bcrypt from "bcrypt"
 export async function setData(req,res){
     try{
        let {id,name,fname,lname,ph,password,email}=req.body;
@@ -150,4 +152,45 @@ export function users(req,res){
         res.json("error")
     }
 
+}
+
+
+
+export async function register(req,res){
+    try {
+        let { username,password } = req.body;
+        if(password.length<4){
+            return res.json("invalid username");
+        }
+        let user = await loginSchema.findOne({username})
+        let hashedPass = await bcrypt.hash(password,10)
+        if(user){
+            return res.json("user already exists");
+        }
+        let result = await loginSchema.create({username,password:hashedPass});
+        return res.json(result);
+    } catch (error) {
+        console.log(error);
+        res.json("Error occured");
+    }
+}
+
+
+export async function login(req,res) {
+    try {
+        let { username,password } =req.body;
+        let user=await loginSchema.findOne({username})
+        let validation=await bcrypt.compare(password,user.password)
+       if(validation){
+        return res.json("Login successful");
+     
+
+       }
+
+return res.json("Incorrect username or password")
+
+    } catch (error) {
+        console.log(error)
+        res.json("Error occured")
+    }
 }
