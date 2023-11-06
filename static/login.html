@@ -14,7 +14,24 @@
 <script>
     let username=document.getElementById("username");
     let password=document.getElementById("password")
-    function login()
+    function login(event){
+        event.preventDefault();
+        fetch("http://localhost:3000/api/login",{
+            method:"post",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                username:username.value,
+                password:password.value
+            })
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            localStorage.setItem("token",data.token)
+            location.href="http://localhost:3000/user.html"
+        })
+    }
 </script>
 </body>
 </html>
