@@ -6,14 +6,15 @@
     <title>Login</title>
 </head>
 <body>
-    <form action="/api/login" method="post">
+    <form onsubmit="login(event)">
         <input type="text" name="username" id="username" placeholder="USERNAME"><br>
         <input type="password" name="password" id="password" placeholder="PASSWORD"><br>
         <input type="submit" value="Login" >
-
-
-
-
 </form>
+<script>
+    let username=document.getElementById("username");
+    let password=document.getElementById("password")
+    function login()
+</script>
 </body>
 </html>

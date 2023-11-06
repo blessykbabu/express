@@ -1,5 +1,6 @@
 import { Router } from "express";
 import * as rh from "./request-handlers.js";
+import auth from "./middle-wares/auth.js"
 
 
 const router = Router();
@@ -15,6 +16,7 @@ router.route("/users/:id").get(middleWare,rh.users)
 
 router.route("/register").post(rh.register)
 router.route("/login").post(rh.login)
+router.route("/get-private-data").get(auth,rh.getprivateData)
 export default router;
 
 function middleWare(req,res,next){    //in this block we create the function for custome middlware "middleWare"

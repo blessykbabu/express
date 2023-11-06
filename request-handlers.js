@@ -58,6 +58,9 @@ import userSchema from "./schemas/user.schema.js";
 import UserSchema from  "./schemas/user.schema.js"
 import loginSchema from "./schemas/login.schema.js";
 import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
+
+const {sign}=jwt;
 export async function setData(req,res){
     try{
        let {id,name,fname,lname,ph,password,email}=req.body;
@@ -182,8 +185,19 @@ export async function login(req,res) {
         let user=await loginSchema.findOne({username})
         let validation=await bcrypt.compare(password,user.password)
        if(validation){
-        return res.json("Login successful");
-     
+       let token=await sign({
+        username:user.username
+       },
+       
+       process.env.SECRET_KEY,
+       {
+        expiresIn:"24h"
+       }
+       )
+     return res.json({
+        msg:"Login successful",
+        token:token
+     });
 
        }
 
@@ -192,5 +206,13 @@ return res.json("Incorrect username or password")
     } catch (error) {
         console.log(error)
         res.json("Error occured")
+    }
+}
+export async function getprivateData(req,res){
+    try {
+        res.json("private data")
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("internal server error")
     }
 }

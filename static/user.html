@@ -11,7 +11,12 @@
     <script>
        console.log(location.href);
        let id=location.href.split("?id=")[1]
-       fetch(`http://localhost:3000/api/get-data2?id=${id}`)
+       fetch(`http://localhost:3000/api/get-data2?id=${id}`,{
+        method:"post",
+        headres:{
+            authorization:`Bearer ${}
+        }
+       })
        .then(res => res.json())
        .then(data =>{
         console.log(data)
